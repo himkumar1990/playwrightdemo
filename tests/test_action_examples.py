@@ -5,6 +5,9 @@ def test_checkbox_select(page: Page):
     page.goto("https://demoqa.com/checkbox")
     home_checkbox = page.locator(".rct-checkbox")
     assert home_checkbox.is_checked() is False
+
+    # Check the checkbox
     home_checkbox.check()
+    # Assert the checked state
     assert home_checkbox.is_checked() is True
     page.close()
