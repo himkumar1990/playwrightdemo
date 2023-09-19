@@ -1,5 +1,5 @@
-from playwright.async_api import Page
-
+from playwright.async_api import Page, expect
+import time
 
 def test_checkbox_select(page: Page):
     page.goto("https://demoqa.com/checkbox")
@@ -11,3 +11,13 @@ def test_checkbox_select(page: Page):
     # Assert the checked state
     assert home_checkbox.is_checked() is True
     page.close()
+
+
+def test_hover_over_element(page: Page):
+    page.goto("https://demoqa.com/tool-tips")
+    hover_over_me = page.locator("button#toolTipButton")
+    hover_over_me.hover()
+    time.sleep(2)
+    hover_over_text = page.locator(".tooltip-inner")
+
+    assert hover_over_text.is_visible() is True
