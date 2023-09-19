@@ -20,6 +20,9 @@ def test_001(page: Page):
     email = page.get_by_placeholder("name@example.com")
     address = page.get_by_role("textbox", name="address")
     permanent_address = page.locator("#permanentAddress")
+
+    # using locator.fill method to fill out form fields
+    # It works for <input>, <textarea> and [contenteditable] elements.
     full_name.fill("Himanshu Kumar")
     email.fill("testemail@gmail.com")
     address.fill("first street 10")
@@ -32,4 +35,16 @@ def test_001(page: Page):
 
     expect(result_name).to_have_text("Name:Himanshu Kumar")
     expect(result_address).to_have_text("Current Address :first street 10")
+
+
+def test_002(page: Page):
+    page.goto("https://demoqa.com/links")
+    context = page.context
+    with context.expect_page() as home_page_info:
+        page.locator("//a[@id ='simpleLink']").click()
+    new_page = home_page_info.value
+
+    new_page.wait_for_load_state()
+    print("Title of new page: " + new_page.title())
+
 
